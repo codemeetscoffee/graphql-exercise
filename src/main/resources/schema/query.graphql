@@ -13,3 +13,8 @@ type Mutation {
     solutionCreate(solution: SolutionCreateInput!): SolutionResponse!
     solutionVote(vote: SolutionVoteInput!): SolutionResponse!
 }
+
+type Subscription {
+    problemAdded: Problem!
+    solutionVoteChanged(solutionId: ID!): Solution!
+}
