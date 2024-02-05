@@ -1,0 +1,15 @@
+type Query {
+    me: User!
+    problemLatestList: [Problem!]
+    itemSearch(filter: SearchItemFilter): [SearchableItem!]
+    problemDetail(id: ID!): Problem!
+}
+
+type Mutation {
+    userCreate(user: UserCreateInput!): UserResponse!
+    userLogin(user: UserLoginInput!): UserResponse!
+    userActivation(user: UserActivationInput!): UserActivationResponse!
+    problemCreate(problem: ProblemCreateInput!): ProblemResponse!
+    solutionCreate(solution: SolutionCreateInput!): SolutionResponse!
+    solutionVote(vote: SolutionVoteInput!): SolutionResponse!
+}
