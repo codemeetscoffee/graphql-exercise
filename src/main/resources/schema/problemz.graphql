@@ -28,6 +28,7 @@ type Solution implements SearchableItem{
     content: String!
     category: SolutionCategory!
     voteAsGoodCount: NonNegativeInt
+    voteAsBadCount: NonNegativeInt
     author: User!
 
 }
