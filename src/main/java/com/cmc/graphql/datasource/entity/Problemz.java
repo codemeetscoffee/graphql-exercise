@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -24,6 +24,7 @@ public class Problemz {
     private String content;
     private String tags;
 
+//    @OrderBy("creationTimestamp desc")
     @OneToMany(mappedBy = "problems")
     private List<Solutionz> solutions;
 
