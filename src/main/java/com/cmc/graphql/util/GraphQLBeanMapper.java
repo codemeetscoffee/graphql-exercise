@@ -9,7 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class GraphQLBeanMapper {
     private static final PrettyTime PRETTY_TIME = new PrettyTime();
@@ -29,7 +31,9 @@ public class GraphQLBeanMapper {
         var result = new Problem();
         var createdDateTime = original.getCreationTimestamp().atOffset(ZONE_OFFSET);
         var author = mapToGraphql(original.getCreatedBy());
-        var convertedSolutions = original.getSolutions().stream().map(GraphQLBeanMapper::mapToGraphql).toList();
+        var convertedSolutions = original.getSolutions().stream()
+//                .sorted(Comparator.comparing(Solutionz::getCreationTimestamp).reversed())
+                .map(GraphQLBeanMapper::mapToGraphql).toList();
         var tagList = List.of(original.getTags().split(","));
 
         result.setAuthor(author);
@@ -68,4 +72,23 @@ public class GraphQLBeanMapper {
         return result;
     }
 
+    public static Problemz mapToEntity(ProblemCreateInput original, Userz author){
+        var result = new Problemz();
+        result.setContent(original.getContent());
+        result.setCreatedBy(author);
+        result.setId(UUID.randomUUID());
+        result.setSolutions(Collections.emptyList());
+        result.setTags(String.join(",", original.getTags()));
+        result.setTitle(original.getTitle());
+        return result;
+    }
+
+    public static Solutionz mapToEntity(SolutionCreateInput original, Userz author, Problemz problemz){
+        var result = new Solutionz();
+        result.setCategory(original.getCategory().name());
+        result.setContent(original.getContent());
+        result.setId(UUID.randomUUID());
+        result.setProblems(problemz);
+        return result;
+    }
 }
